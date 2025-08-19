@@ -1,101 +1,88 @@
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, View, KeyboardAvoidingView, Platform } from 'react-native';
 import { GiftedChat, Bubble } from 'react-native-gifted-chat';
+import { collection, addDoc, onSnapshot, query, orderBy, serverTimestamp } from 'firebase/firestore';
 
-const Chat = ({ route }) => {
-  // Extract name and backgroundColor from navigation params
-  const { name, backgroundColor } = route.params || {};
+const Chat = ({ route, db }) => {
+  // Extract user data from navigation parameters
+  const { userID, name, backgroundColor } = route.params || {};
   
-  // State to hold all chat messages
+  // State to hold chat messages
   const [messages, setMessages] = useState([]);
 
-  // useEffect hook to initialize chat with static messages when component mounts
+  // Set up message listener on component mount for dev
   useEffect(() => {
-    setMessages([
-      {
-        _id: 1,
-        text: `${name || 'User'} has entered the chat!`, // System message with user's name
-        createdAt: new Date(),
-        system: true, // This makes it a system message 
-      },
-      {
-        _id: 2,
-        text: "Hello developer", // Welcome message from React Native bot
-        createdAt: new Date(),
-        user: {
-          _id: 2,
-          name: "React Native",
-          avatar: "https://placeimg.com/140/140/any",
-        },
-      },
-    ]);
-  }, [name]); // Dependency array includes name so it updates if name changes
+    console.log('Setting up Firestore listener...');
+    const q = query(collection(db, "messages"), orderBy("createdAt", "desc"));
+    
+    const unsubscribe = onSnapshot(q, (querySnapshot) => {
+      console.log('Received', querySnapshot.size, 'messages from Firestore');
+      
+      const newMessages = [];
+      querySnapshot.forEach(doc => {
+        const messageData = doc.data();
+        console.log('Message data:', messageData);
+        
+        newMessages.push({
+          _id: doc.id,
+          text: messageData.text,
+          createdAt: messageData.createdAt?.toDate() || new Date(),
+          user: messageData.user
+        });
+      });
+      
+      setMessages(newMessages);
+    });
   
+    return () => unsubscribe();
+  }, [db]);
+
   // Function to handle sending new messages
-  // Called when user submits a message through GiftedChat
   const onSend = (newMessages) => {
-    setMessages(previousMessages => 
-      GiftedChat.append(previousMessages, newMessages)
-    );
+    console.log('Attempting to send message:', newMessages[0]);
+    
+    // Add new message to Firestore collection
+    addDoc(collection(db, "messages"), {
+      ...newMessages[0],
+      createdAt: serverTimestamp(),
+    })
+    .then((docRef) => {
+      console.log('Message sent successfully, ID:', docRef.id);
+    })
+    .catch((error) => {
+      console.error('Error sending message:', error);
+    });
   };
 
-  // Custom function to render message bubbles with custom styling
-  const renderBubble = (props) => {
-    return (
-      <Bubble
-        {...props}
-        wrapperStyle={{
-          right: {
-            backgroundColor: "#000", // User's messages appear in black bubbles
-          },
-          left: {
-            backgroundColor: "#FFF", // Other users' messages appear in white bubbles
-          }
-        }}
-      />
-    );
-  };
+  // Custom bubble rendering function for message styling
+  const renderBubble = (props) => (
+    <Bubble
+      {...props}
+      wrapperStyle={{
+        right: { backgroundColor: "#000" }, // User's messages in black
+        left: { backgroundColor: "#FFF" }   // Other users' messages in white
+      }}
+    />
+  );
 
   return (
-    // Main container with user-selected background color
     <View style={[styles.container, { backgroundColor: backgroundColor || '#090C08' }]}>
-      {Platform.OS === 'ios' ? (
-      <KeyboardAvoidingView 
-        behavior="padding"
-        style={styles.keyboardAvoidingView}
-      >
-        <GiftedChat
-          messages={messages} // Array of messages to display
-          renderBubble={renderBubble} // Bubble rendering function
-          onSend={messages => onSend(messages)} 
-          user={{
-            _id: 1, // Current user's ID (matches user who sends messages)
-            name: name || 'User', // User's name from Start screen
-          }}
-        />
-      </KeyboardAvoidingView>
-      ) : (
       <GiftedChat
         messages={messages}
         renderBubble={renderBubble}
-        onSend={messages => onSend(messages)}
+        onSend={onSend}
         user={{
-          _id: 1,
-          name: name || 'User',
+          _id: userID,
+          name: name,
         }}
       />
-      )}
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1, // Takes up full screen
-  },
-  keyboardAvoidingView: {
-    flex: 1, 
-  },
+  container: { flex: 1 },
+  keyboardAvoidingView: { flex: 1 },
 });
 
 export default Chat;
