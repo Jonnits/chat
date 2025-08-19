@@ -9,6 +9,11 @@ dist/
 web-build/
 expo-env.d.ts
 
+# Firebase
+babel.config.js
+.firebaserc
+firebase.js
+
 # Native
 .kotlin/
 *.orig.*
