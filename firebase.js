@@ -1,13 +1,20 @@
 import { initializeApp } from 'firebase/app';
 import { initializeFirestore } from 'firebase/firestore';
+import {
+  FIREBASE_API_KEY,
+  FIREBASE_AUTH_DOMAIN,
+  FIREBASE_PROJECT_ID,
+  FIREBASE_MESSAGING_SENDER_ID,
+  FIREBASE_APP_ID
+} from '@env';
 
 // Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyArzAr0n0NKUorUORhpXZ_7N7ibEcoyPlE",
-  authDomain: "chat-b5c00.firebaseapp.com",
-  projectId: "chat-b5c00",
-  messagingSenderId: "36641391992",
-  appId: "1:36641391992:web:16e97062f06e76fd80f48d"
+  apiKey: FIREBASE_API_KEY,
+  authDomain: FIREBASE_AUTH_DOMAIN,
+  projectId: FIREBASE_PROJECT_ID,
+  messagingSenderId: FIREBASE_MESSAGING_SENDER_ID,
+  appId: FIREBASE_APP_ID
 };
 
 // Initialize Firebase
