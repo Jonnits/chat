@@ -11,7 +11,6 @@ import { disableNetwork, enableNetwork } from 'firebase/firestore';
 const Stack = createNativeStackNavigator();
 
 const App = () => {
-  const [text, setText] = useState('');
   const [isConnected, setIsConnected] = useState(true);
 
   // Monitor network connectivity

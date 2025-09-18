@@ -1,13 +1,11 @@
 import React, { useState } from 'react';
-import { TouchableOpacity, StyleSheet, View, Alert, Platform } from 'react-native';
+import { TouchableOpacity, StyleSheet, Alert } from 'react-native';
 import { ActionSheetProvider, useActionSheet } from '@expo/react-native-action-sheet';
 import { Ionicons } from '@expo/vector-icons';
 import * as ImagePicker from 'expo-image-picker';
 import * as Location from 'expo-location';
 import { Audio } from 'expo-av';
-import * as FileSystem from 'expo-file-system';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
-import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
 
 const CustomActions = ({ storage, db, userID, onSend, isConnected }) => {
   const { showActionSheetWithOptions } = useActionSheet();

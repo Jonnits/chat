@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, View, Text, TouchableOpacity, Image, KeyboardAvoidingView, Platform, TextInput } from 'react-native';
+import { StyleSheet, View, Text, TouchableOpacity, Image, TextInput } from 'react-native';
 import { GiftedChat, Bubble, InputToolbar } from 'react-native-gifted-chat';
 import { collection, addDoc, onSnapshot, query, orderBy, serverTimestamp } from 'firebase/firestore';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -227,7 +227,6 @@ const Chat = ({ route, db, storage, isConnected }) => {
 
 const styles = StyleSheet.create({
   container: { flex: 1 },
-  keyboardAvoidingView: { flex: 1 },
   inputToolbarContainer: {
     paddingHorizontal: 10,
     paddingVertical: 5,
