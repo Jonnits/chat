@@ -1,5 +1,6 @@
 import { initializeApp } from 'firebase/app';
 import { initializeFirestore } from 'firebase/firestore';
+import { getStorage } from 'firebase/storage';
 import {
   FIREBASE_API_KEY,
   FIREBASE_AUTH_DOMAIN,
@@ -14,7 +15,8 @@ const firebaseConfig = {
   authDomain: FIREBASE_AUTH_DOMAIN,
   projectId: FIREBASE_PROJECT_ID,
   messagingSenderId: FIREBASE_MESSAGING_SENDER_ID,
-  appId: FIREBASE_APP_ID
+  appId: FIREBASE_APP_ID,
+  storageBucket: `${FIREBASE_PROJECT_ID}.firebasestorage.app`
 };
 
 // Initialize Firebase
@@ -25,4 +27,7 @@ const db = initializeFirestore(app, {
   experimentalForceLongPolling: true, 
 });
 
-export { app, db };
+// Initialize Firebase Storage
+const storage = getStorage(app);
+
+export { app, db, storage };

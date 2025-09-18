@@ -19,7 +19,9 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "edgeToEdgeEnabled": true
+      "edgeToEdgeEnabled": true,
+      "compileSdkVersion": 36,
+      "targetSdkVersion": 36
     },
     "web": {
       "favicon": "./assets/favicon.png"

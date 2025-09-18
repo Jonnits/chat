@@ -17,7 +17,7 @@ const Start = ({ navigation }) => {
       name: name || 'Anonymous', // User's entered name or default
       backgroundColor: selectedColor // Selected background color
     });
-    Alert.alert('Entered Chat Successfully!');
+    Alert.alert('Entered chat. Be nice!');
   };
 
   return (
@@ -108,8 +108,7 @@ const styles = StyleSheet.create({
 
   scrollContent: { 
     flexGrow: 1, 
-    justifyContent: 'center',
-    backgroundColor: '#090C08' },
+    justifyContent: 'center' },
 
   content: { 
     flex: 1, 
@@ -117,8 +116,7 @@ const styles = StyleSheet.create({
     alignItems: 'center', 
     paddingHorizontal: '6%', 
     paddingTop: 40, 
-    paddingBottom: '6%',
-    backgroundColor: '#090C08' },
+    paddingBottom: '6%' },
 
   whiteBox: { 
     backgroundColor: '#FFFFFF', 
@@ -126,7 +124,7 @@ const styles = StyleSheet.create({
     height: '44%', 
     borderRadius: 8, 
     padding: 20, 
-    justifyContent: 'space-evenly', 
+    justifyContent: 'center', 
     alignItems: 'center', 
     shadowColor: '#000', 
     shadowOffset: { width: 0, height: 2 }, 
@@ -145,13 +143,15 @@ const styles = StyleSheet.create({
 
   inputSection: { 
     width: '88%', 
-    alignItems: 'center', 
-    backgroundColor: '#090C08' },
+    alignItems: 'center',
+    flex: 1,
+    justifyContent: 'center' },
 
   colorSection: { 
     width: '100%', 
-    alignItems: 'center', 
-    backgroundColor: '#090C08' },
+    alignItems: 'center',
+    flex: 1,
+    justifyContent: 'center' },
 
   label: { 
     fontSize: 16, 
@@ -163,13 +163,15 @@ const styles = StyleSheet.create({
   input: { 
     height: 50, 
     width: '100%', 
+    minWidth: '100%',
     borderWidth: 1, 
     borderColor: '#757083', 
     borderRadius: 8, 
     paddingHorizontal: 15, 
     fontSize: 16, 
     backgroundColor: 'rgba(255, 255, 255, 0.9)', 
-    color: '#757083' },
+    color: '#757083',
+    flexShrink: 0 },
 
   colorOptions: { 
     flexDirection: 'row', 
@@ -192,7 +194,9 @@ const styles = StyleSheet.create({
     paddingVertical: 15, 
     paddingHorizontal: 30, 
     borderRadius: 8, 
-    width: '88%' },
+    width: '88%',
+    flex: 1,
+    justifyContent: 'center' },
 
   buttonText: { 
     color: '#FFFFFF', 

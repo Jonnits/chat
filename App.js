@@ -4,7 +4,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import NetInfo from '@react-native-community/netinfo';
 import Start from './components/Start';
 import Chat from './components/Chat';
-import { db } from './firebase';
+import { db, storage } from './firebase';
 import { disableNetwork, enableNetwork } from 'firebase/firestore';
 
 // Create the navigator
@@ -81,7 +81,7 @@ const App = () => {
             },
           })}
         >
-          {props => <Chat {...props} db={db} isConnected={isConnected} />}
+          {props => <Chat {...props} db={db} storage={storage} isConnected={isConnected} />}
         </Stack.Screen>
       </Stack.Navigator>
     </NavigationContainer>
