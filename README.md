@@ -224,18 +224,6 @@ npx expo install --fix
 }
 ```
 
-## User Stories Addressed
-
-- **Easy Chat Entry**: Users can quickly enter their name and join the chat
-- **Message Exchange**: Send and receive text messages with friends and family
-- **Image Sharing**: Share photos from gallery or take new pictures with camera
-- **Audio Messaging**: Record and send voice messages for personal communication
-- **Location Sharing**: Share current location with friends via interactive maps
-- **Offline Reading**: Access previously loaded messages without internet connection
-- **Network Awareness**: Automatic detection of connection status with sync when online
-- **Accessibility**: Screen reader compatibility for users with visual impairments
-- **Cross-Platform**: Consistent experience across iOS and Android devices
-
 ## Contributing
 
 This is an educational project. While it's not open for external contributions, feedback and suggestions are welcome!
